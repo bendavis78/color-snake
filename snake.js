@@ -19,10 +19,41 @@ var state,
     keyBuffer = [],
     allowKeyPress = true;
 
-function keyPressed() {
+
+var $ = document.querySelector.bind(document);
+
+function setup() {
+  // create canvas and constrain to parent container's size
+  var p5 = createCanvas(gridWidth * s, gridHeight * s);
+  var container = $('#gameArea');
+  p5.parent(container);
+  frameRate(fps);
+  noCursor();
+  state = 'START';
+  sizeCanvas();
+  setupButtons();
+}
+
+function windowResized() {
+  sizeCanvas();
+}
+
+function sizeCanvas() {
+  var canvas = $('#gameArea canvas');
+  var containerStyle = window.getComputedStyle($('#gameArea'));
+  console.log(containerStyle.width);
+  canvas.style.width = containerStyle.width;
+  canvas.style.height = containerStyle.width;
+}
+
+function emulateKeyPress(key) {
   if (allowKeyPress) {
-    keyBuffer.push({key: key, keyCode: keyCode});
+    keyBuffer.push(key);
   }
+}
+
+function keyPressed() {
+  emulateKeyPress({key: key, keyCode: keyCode});
 }
 
 function nextKeyPress() {
@@ -55,13 +86,6 @@ function nextKeyPress() {
     xSpeed = 1;
     ySpeed = 0;
   }
-}
-
-function setup() {
-  createCanvas(gridWidth * s, gridHeight * s);
-  frameRate(fps);
-  noCursor();
-  state = 'START';
 }
 
 function start() {
@@ -278,4 +302,19 @@ function gameOver() {
     state = 'START';
     allowKeyPress = true;
   }, 3000);
+}
+
+function setupButtons() {
+  $('.dpad .btn.up').addEventListener('click', function() {
+    emulateKeyPress({keyCode: UP_ARROW});
+  });
+  $('.dpad .btn.lt').addEventListener('click', function() {
+    emulateKeyPress({keyCode: LEFT_ARROW});
+  });
+  $('.dpad .btn.rt').addEventListener('click', function() {
+    emulateKeyPress({keyCode: RIGHT_ARROW});
+  });
+  $('.dpad .btn.dn').addEventListener('click', function() {
+    emulateKeyPress({keyCode: DOWN_ARROW});
+  });
 }

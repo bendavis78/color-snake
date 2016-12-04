@@ -1,21 +1,21 @@
 <html>
-  <style>
-    html, body {
-      height: 100%;
-    }
-
-    body {
-      margin: 0;
-      display: flex;
-
-      /* This centers our sketch horizontally. */
-      justify-content: center;
-
-      /* This centers our sketch vertically. */
-      align-items: center;
-    }
-  </style>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="snake.css">
+  </head>
   <body>
+    <div id="main">
+      <div id="gameArea">
+      </div>
+      <div id="buttons">
+        <div class="dpad">
+          <div class="btn up"><span>▲</span></div>
+          <div class="btn lt"><span>◀</span></div>
+          <div class="btn rt"><span>▶</span></div>
+          <div class="btn dn"><span>▼</span></div>
+        </div>
+      </div>
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.4/p5.min.js"></script>
     <script src="snake.js"></script>
   </body>
