@@ -31,7 +31,9 @@ function setup() {
   noCursor();
   state = 'START';
   sizeCanvas();
-  setupButtons();
+  if (isTouchDevice()) {
+    setupButtons();
+  }
 }
 
 function windowResized() {
@@ -305,6 +307,7 @@ function gameOver() {
 }
 
 function setupButtons() {
+  $('#buttons').style.display = '';
   $('.dpad .btn.up').addEventListener('click', function() {
     emulateKeyPress({keyCode: UP_ARROW});
   });
@@ -318,3 +321,7 @@ function setupButtons() {
     emulateKeyPress({keyCode: DOWN_ARROW});
   });
 }
+
+function isTouchDevice() {
+  return 'ontouchstart' in window || navigator.maxTouchPoints;
+};
